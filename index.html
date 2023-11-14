@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Movie Website</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background-color: #141414;
+      color: #ffffff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #141414;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #e6e6e6;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      margin-bottom: 50px;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ff9900;
+      position: relative;
+      animation: fadeInLeft 1s ease-out;
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+ 
+
+    .media-container {
+      display: flex;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .media-item {
+      width: 240px; /* Adjusted width for a better layout */
+      height: 430px; /* Adjusted height for a better layout */
+      margin-right: 20px;
+      margin-bottom: 50px;
+      padding: 0; /* Removed padding to make the image touch the borders */
+      background-color: #333333;
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden; /* Hide overflowing content */
+    }
+
+    .media-item img {
+      width: 100%;
+      height: 60%; /* Adjusted height for the poster image */
+      border-radius: 8px 8px 0 0;
+      background-color: #303030;
+      object-fit: cover; /* Ensure the image covers the container */
+    }
+
+    .media-item:hover {
+      transform: scale(1.05);
+    }
+
+
+    .media-item .title {
+  font-weight: bold;
+  font-size: 1.4rem; /* Adjusted font size for a bit bigger titles */
+  margin-bottom: 5px;
+  color: #e6e6e6; /* Set the title color to white */
+    }
+
+    .media-item .overview {
+  font-size: 0.8rem; /* Adjusted font size for the overview */
+  margin: 0 10px; /* Added margins on the sides */
+  color: #e6e6e6; /* Set the overview color to white */
+  max-height: 100px; /* Set a maximum height for the overview */
+  overflow: hidden; /* Hide overflow to respect the maximum height */
+  text-align: left; /* Align text to the left */
+  padding: 5px; /* Add some padding for better aesthetics */
+}
+
+
+
+
+
+    .media-item:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(20, 20, 20, 0), rgba(20, 20, 20, 0.8));
+      z-index: 1;
+      border-radius: 8px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .media-item:hover:after {
+      opacity: 1;
+    }
+
+    #optionsContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .option-button {
+      background-color: #ff9900;
+      color: #ffffff;
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      margin: 0 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .option-button:hover {
+      background-color: #333333;
+    }
+    @media screen and (max-width: 600px) {
+      body {
+        overflow-x: hidden;
+      }
+
+      .media-item {
+        width: calc(50% - 20px);
+        height: 450px;
+        margin-bottom: 20px;
+      }
+      .media-item .title{
+       font-weight: bold;
+       font-size: 15px;
+       margin-bottom: 5px;
+       color: white;
+      }
+      .media-item .overview{ 
+        font-size: 10px;
+      }
+
+      .movie-card {
+        width: calc(50% - 20px);
+        margin: 10px;
+      }
+
+      .movie-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .movie-card h3 {
+        font-size: 9px;
+        margin-bottom: 5px;
+      }
+
+      .movie-card p {
+        max-height: 60px;
+        overflow: hidden;
+        font-size: 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Movie Website</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Welcome to Movie Website!</h2>
+      
+      <div id="optionsContainer">
+        <a href="/movies">
+          <button class="option-button">Watch Movies</button>
+        </a>
+        <a href="/tv">
+          <button class="option-button">Watch Series</button>
+        </a>
+      </div>
+    </section>
+
+    <!-- Section for latest movies -->
+    <section id="latestMovies">
+      <h2>Latest Movies</h2>
+      <div id="moviesContainer" class="media-container">
+        <!-- Movies will be added here dynamically -->
+      </div>
+    </section>
+
+    <!-- Section for latest Series -->
+    <section id="latestTvSeries">
+      <h2>Latest Series</h2>
+      <div id="tvSeriesContainer" class="media-container">
+        <!-- Series will be added here dynamically -->
+      </div>
+    </section>
+  </main> 
+
+  <!-- Add this script at the end of the body section -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+  const tmdbApiKey = "6ec79fa402d8b1367d8e8255e043cacf";
+
+  // Function to fetch a list of media (movies or Series)
+  const fetchMediaList = (mediaType, containerId, apiKey) => {
+    const tmdbEndpoint = `/${mediaType}/popular`;
+    const tmdbUrl = `https://api.themoviedb.org/3${tmdbEndpoint}?api_key=${apiKey}&language=en-US&page=1`;
+
+    fetch(tmdbUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        const container = document.getElementById(containerId);
+
+        // Iterate over the first 15 items in the list
+        for (let i = 0; i < 30; i++) {
+          const media = data.results[i];
+
+          // Truncate the overview to a specified number of words (e.g., 20 words)
+          const truncatedOverview = truncateWords(media.overview, 20);
+
+          // Get the embed URL based on media type and ID
+          const embedUrl = getEmbedUrl(mediaType, media.id);
+
+          // Create media item elements
+          const mediaItem = document.createElement('div');
+          mediaItem.classList.add('media-item');
+          mediaItem.setAttribute('data-tmdb-id', media.id);
+          mediaItem.setAttribute('data-media-type', mediaType);
+
+          const img = document.createElement('img');
+          img.src = `https://image.tmdb.org/t/p/w342${media.poster_path}`;
+          img.alt = `${media.title || media.name} Poster`;
+
+          const title = document.createElement('p');
+          title.classList.add('title');
+          title.textContent = media.title || media.name;
+
+          const overview = document.createElement('p');
+          overview.classList.add('overview');
+          overview.textContent = truncatedOverview;
+
+          // Set styles for overview
+          // overview.style.fontSize = '1rem';
+// overview.style.margin = '0 10px';
+// overview.style.color = '#e6e6e6';
+// overview.style.maxHeight = '100px';
+// overview.style.overflow = 'hidden';
+// overview.style.textAlign = 'left';
+// overview.style.padding = '5px';
+
+          // Append elements to media item
+          mediaItem.appendChild(img);
+          mediaItem.appendChild(title);
+          mediaItem.appendChild(overview);
+
+          // Append media item to container
+          container.appendChild(mediaItem);
+        }
+
+        // Make the media items clickable
+        makeMediaItemsClickable(mediaType);
+      })
+      .catch((error) => console.error("Error fetching media list:", error));
+  };
+
+  // Fetch latest movies
+  fetchMediaList("movie", "moviesContainer", tmdbApiKey);
+
+  // Fetch latest Series
+  fetchMediaList("tv", "tvSeriesContainer", tmdbApiKey);
+
+  // Function to truncate a string to a specified number of words
+  const truncateWords = (str, numWords) => {
+    const wordArray = str.split(" ");
+    const truncatedArray = wordArray.slice(0, numWords);
+    return truncatedArray.join(" ") + "...";
+  };
+
+  // Function to get the embed URL for a movie or Series
+  const getEmbedUrl = (mediaType, tmdbId) => {
+    const tmdbEndpoint = `/${mediaType}/${tmdbId}/videos`;
+    const tmdbUrl = `https://api.themoviedb.org/3${tmdbEndpoint}?api_key=${tmdbApiKey}`;
+
+    return fetch(tmdbUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        // Check if there is at least one video available
+        if (data.results.length > 0) {
+          // Return the YouTube embed URL for the first video
+          return `https://www.youtube.com/embed/${data.results[0].key}`;
+        } else {
+          // Return a default video if no videos are available
+          return "https://www.youtube.com/embed/dQw4w9WgXcQ";
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching video key:", error);
+        // Return a default video in case of an error
+        return "https://www.youtube.com/embed/dQw4w9WgXcQ";
+      });
+  };
+
+  // Function to make media items clickable
+  const makeMediaItemsClickable = (mediaType) => {
+    const mediaItems = document.querySelectorAll(`.media-item[data-media-type="${mediaType}"]`);
+    mediaItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const tmdbId = item.getAttribute("data-tmdb-id");
+        const embedUrl = `https://vidsrc.to/embed/${mediaType}/${tmdbId}`;
+        window.location.href = embedUrl;
+      });
+    });
+  };
+});
+
+  </script>
+</body>
+
+</html>
